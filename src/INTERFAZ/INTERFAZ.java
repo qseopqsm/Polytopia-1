@@ -11,6 +11,7 @@ import java.awt.event.*;
 public class INTERFAZ extends JFrame {
 
 
+    static String seleccionado = "nothing";
     Container Panel_mapa;
     Container contenedor;
     JLabel[][] label;
@@ -103,11 +104,26 @@ public class INTERFAZ extends JFrame {
 
             }
         }
+    }
 
 
+    public void ResetMap(Map c, Jugador ju){
+        for (int i = 0; i < c.mapa.length - 1; i++) {
+            for (int j = 0; j < c.mapa[0].length - 1; j++) {
+                if (losJug(i, j, ju)) {
+
+                } else UnJL(i, j, c);
+            }
+        }
+    }
+
+
+    public void CambiarColor(Point p, Color color){
+        this.label[p.x][p.y].setBackground(color);
     }
 
     public void losJL(Map c, Jugador ju) {
+
 
         for (int i = 0; i < c.mapa.length - 1; i++) {
             for (int j = 0; j < c.mapa[0].length - 1; j++) {

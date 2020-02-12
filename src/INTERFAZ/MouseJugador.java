@@ -1,6 +1,7 @@
 package INTERFAZ;
 
 import JUGADOR.Jugador;
+import MAPA.Llanura;
 import MAPA.Map;
 
 import java.awt.*;
@@ -13,7 +14,7 @@ public class MouseJugador  implements MouseListener {
     Jugador jugador;
     Map map;
     MouseJugador(INTERFAZ interfaz, Jugador jugador, Map map){
-        movimiento = new Movimiento(interfaz, map, jugador);
+
         this.interfaz = interfaz;
         this.jugador = jugador;
         this.map = map;
@@ -23,14 +24,28 @@ public class MouseJugador  implements MouseListener {
     Point mapclick;
     @Override
     public void mouseClicked(MouseEvent e) {
-        double x = ((double)e.getX() / 2000) * map.mapa.length ;
-        double y = ((double)e.getY() / 2000) * map.mapa[0].length ;
+        double x = ((double) e.getX() / 2000) * map.mapa.length;
+        double y = ((double) e.getY() / 2000) * map.mapa[0].length;
+        click = new Point((int)x,(int)y);
         System.out.println(x);
         System.out.println(y);
-        movimiento.MovimientoTropaTest01(interfaz,map,jugador, new Point((int)x,(int)y));
-        interfaz.label[(int)x][(int)y].setBackground(Color.RED);
+        switch (INTERFAZ.seleccionado) {
+            case "nothing":
+                movimiento = new Movimiento(interfaz, map, jugador);
 
+                if (click.equals(jugador.posicion))
+                    movimiento.MovimientoTropaTest01(interfaz, map, jugador, click);
+                INTERFAZ.seleccionado = "tropa";
+                break;
+            case "tropa":
+                if (interfaz.label[click.x][click.y].getBackground().equals(new Color(50,50,255))){
+                    jugador.posicion = click;
+                }
+                interfaz.ResetMap(map,jugador);
+                INTERFAZ.seleccionado = "nothing";
+                break;
 
+        }
 
     }
 

@@ -16,10 +16,12 @@ public class Movimiento {
         this.jugador = jugador;
     }
     public void MovimientoTropaTest01(INTERFAZ interfaz, Map mapa, Jugador jugador, Point click){
-        for (int i = click.x - 2; i < 5 ; i++) {
-            for (int j = click.y - 2; j < 5 ; j++) {
+        System.out.println("Hello");
+        for (int i = click.x - 2; i <= click.x + 2 ; i++) {
+            for (int j = click.y - 2; j <= click.y + 2 ; j++) {
+                if (i != click.x || j != click.y)
                 if (mapa.mapa[i][j] instanceof Llanura){
-                    interfaz.label[i][j].setBackground(new Color(0,0,255));
+                    interfaz.CambiarColor(new Point(i,j), new Color(50,50,255));
                 }
 
             }
