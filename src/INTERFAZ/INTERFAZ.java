@@ -6,7 +6,6 @@ import MAPA.Map;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class INTERFAZ extends JFrame {
 
@@ -19,8 +18,8 @@ public class INTERFAZ extends JFrame {
 
 
 
-    Map m;
-    Jugador j;
+    Map mapa;
+    Jugador jugador;
     Point initialpos;
     Point local = new Point(300,300);
 
@@ -32,8 +31,13 @@ public class INTERFAZ extends JFrame {
 
 
     public INTERFAZ(Map c, Jugador j) {
-        this.m = c;
-        this.j = j;
+
+
+
+
+
+        this.mapa = c;
+        this.jugador = j;
         new JFrame("mapa");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600,600);
@@ -110,6 +114,7 @@ public class INTERFAZ extends JFrame {
     public void ResetMap(Map c, Jugador ju){
         for (int i = 0; i < c.mapa.length - 1; i++) {
             for (int j = 0; j < c.mapa[0].length - 1; j++) {
+                this.label[i][j].setText("");
                 if (losJug(i, j, ju)) {
 
                 } else UnJL(i, j, c);
@@ -120,6 +125,10 @@ public class INTERFAZ extends JFrame {
 
     public void CambiarColor(Point p, Color color){
         this.label[p.x][p.y].setBackground(color);
+    }
+
+    public void PonerNumero(int numero, Point posicion){
+        this.label[posicion.x][posicion.y].setText(("" + numero));
     }
 
     public void losJL(Map c, Jugador ju) {

@@ -1,7 +1,7 @@
 package INTERFAZ;
 
 import JUGADOR.Jugador;
-import MAPA.Llanura;
+import JUGADOR.PathFinding;
 import MAPA.Map;
 
 import java.awt.*;
@@ -29,13 +29,21 @@ public class MouseJugador  implements MouseListener {
         click = new Point((int)x,(int)y);
         System.out.println(x);
         System.out.println(y);
+        PathFinding path = new PathFinding(jugador,map, interfaz);
+        //interfaz.PonerNumero(path.BuscarDistancia(click),click);
         switch (INTERFAZ.seleccionado) {
             case "nothing":
                 movimiento = new Movimiento(interfaz, map, jugador);
 
-                if (click.equals(jugador.posicion))
-                    movimiento.MovimientoTropaTest01(interfaz, map, jugador, click);
-                INTERFAZ.seleccionado = "tropa";
+                if (click.equals(jugador.posicion)) {
+                    movimiento.MovimientoTropaTest01(interfaz, map, path, click);
+                    INTERFAZ.seleccionado = "tropa";
+                }
+                else{
+                    System.out.println(path.BuscarCaminoTest(jugador.posicion,click));
+                    PathFinding.found = false;
+                }
+
                 break;
             case "tropa":
                 if (interfaz.label[click.x][click.y].getBackground().equals(new Color(50,50,255))){
