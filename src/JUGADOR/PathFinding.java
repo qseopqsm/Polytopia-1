@@ -27,7 +27,6 @@ public class PathFinding {
         if (lugar.equals(destino))
             found = true;
 
-
         if (BuscarDistancia(lugar, destino) > BuscarDistancia(new Point (lugar.x - 1, lugar.y),destino) && mapa.mapa[lugar.x - 1][lugar.y] instanceof Llanura && !found){
             BuscarCaminoTest(new Point (lugar.x - 1, lugar.y),destino);
         }
@@ -46,6 +45,26 @@ public class PathFinding {
         return found;
     }
 
+
+    public void Refound(Point lugar, Point destino){
+        if (found)
+            return;
+
+        if (BuscarDistancia(lugar, destino) > BuscarDistancia(new Point (lugar.x - 1, lugar.y),destino) && mapa.mapa[lugar.x - 1][lugar.y] instanceof Llanura && !found)
+            BuscarCaminoTest(new Point (lugar.x - 1, lugar.y),destino);
+
+        if (BuscarDistancia(lugar, destino) > BuscarDistancia(new Point (lugar.x + 1, lugar.y),destino) && mapa.mapa[lugar.x + 1][lugar.y] instanceof Llanura && !found)
+            BuscarCaminoTest(new Point (lugar.x + 1, lugar.y),destino);
+
+        if (BuscarDistancia(lugar, destino) > BuscarDistancia(new Point (lugar.x, lugar.y - 1),destino ) && mapa.mapa[lugar.x][lugar.y - 1] instanceof Llanura && !found)
+            BuscarCaminoTest(new Point (lugar.x , lugar.y - 1),destino);
+
+        if (BuscarDistancia(lugar, destino) > BuscarDistancia(new Point (lugar.x, lugar.y + 1),destino) && mapa.mapa[lugar.x][lugar.y + 1] instanceof Llanura && !found)
+            BuscarCaminoTest(new Point (lugar.x , lugar.y + 1),destino);
+
+
+
+    }
 
     public int BuscarDistancia(Point destino){
         int distancia = 0;
